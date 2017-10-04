@@ -643,6 +643,9 @@ public class LockableResourcesManager extends GlobalConfiguration {
 
                 try {
                     getConfigFile().write(this);
+                    for (LockableResource resource : resources) {
+                        LOGGER.log(Level.WARNING, "***" + resource.getName() + "***");
+                    }
                 } catch (IOException e) {
                     LOGGER.log(Level.WARNING, "Failed to save " + getConfigFile(),e);
                 }
