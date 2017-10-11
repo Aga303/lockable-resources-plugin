@@ -69,7 +69,9 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	public List<LockableResource> getResourcesFromProject(String fullName) {
 		List<LockableResource> matching = new ArrayList<LockableResource>();
 		for (LockableResource r : resources) {
+			System.out.println("***** this is the resource we're talking about: " + r);
 			String rName = r.getQueueItemProject();
+			System.out.println("***** and this name we got: " + rName);
 			if (rName != null && rName.equals(fullName)) {
 				matching.add(r);
 			}

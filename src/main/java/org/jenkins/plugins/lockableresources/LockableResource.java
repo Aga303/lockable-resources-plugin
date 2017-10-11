@@ -209,6 +209,8 @@ public class LockableResource extends AbstractDescribableImpl<LockableResource> 
 	}
 
 	public void unqueue() {
+		System.out.println("***** UNQUEUED *****");
+		new Exception().printStackTrace(System.out);
 		queueItemId = NOT_QUEUED;
 		queueItemProject = null;
 		queuingStarted = 0;
@@ -301,6 +303,7 @@ public class LockableResource extends AbstractDescribableImpl<LockableResource> 
 		if (queuingStarted > 0) {
 			long now = System.currentTimeMillis() / 1000;
 			if (now - queuingStarted > QUEUE_TIMEOUT)
+			    System.out.println("ITS A TIMEOUT");
 				unqueue();
 		}
 	}
