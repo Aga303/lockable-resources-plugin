@@ -56,6 +56,7 @@ public class LockableResourcesQueueTaskDispatcher extends QueueTaskDispatcher {
 		if (project == null)
 			return null;
 
+		System.out.println("I can RUN, my project is " + project);
 		LockableResourcesStruct resources = Utils.requiredResources(project);
 		if (resources == null ||
 			(resources.required.isEmpty() && resources.label.isEmpty() && resources.getResourceMatchScript() == null)) {

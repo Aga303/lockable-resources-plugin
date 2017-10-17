@@ -164,8 +164,10 @@ public class LockableResourcesManager extends GlobalConfiguration {
 		for (LockableResource r : resources)
 			if (r.isReserved() || r.isQueued(queueItemId) || r.isLocked())
 				return false;
-		for (LockableResource r : resources)
+		for (LockableResource r : resources) {
+			System.out.println("----setQueued gonna happen!----");
 			r.setQueued(queueItemId);
+		}
 		return true;
 	}
 
@@ -181,6 +183,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	                                                 Map<String, Object> params,
 	                                                 Logger log) {
 		try {
+			System.out.println("The DEPRACATED is being used");
 			return tryQueue(requiredResources, queueItemId, queueItemProject, number, params, log);
 		} catch(ExecutionException ex) {
 			if (LOGGER.isLoggable(Level.WARNING)) {
@@ -204,6 +207,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			long queueItemId, String queueItemProject, int number,
 			Map<String, Object> params, Logger log) throws ExecutionException {
 		List<LockableResource> selected = new ArrayList<LockableResource>();
+		System.out.println("---- tryQueue IS TRUE ----");
 
 		if (!checkCurrentResourcesStatus(selected, queueItemProject, queueItemId, log)) {
 			// The project has another buildable item waiting -> bail out
@@ -288,6 +292,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			Run<?, ?> build, @Nullable StepContext context, @Nullable String logmessage, boolean inversePrecedence) {
 		boolean needToWait = false;
 
+		System.out.println("**** I'm managing and I got " + resources + "***");
 		for (LockableResource r : resources) {
 			if (r.isReserved() || r.isLocked()) {
 				needToWait = true;
@@ -530,10 +535,15 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			List<LockableResource> newResouces = req.bindJSONToList(
 					LockableResource.class, json.get("resources"));
 			for (LockableResource r : newResouces) {
+			    System.out.println("Im a configure. I got name " + r.getName() + " / my resource is " + r);
 				LockableResource old = fromName(r.getName());
 				if (old != null) {
+					System.out.println("Old was not null, btw. queueitemproject is " + r.getQueueItemProject());
 					r.setBuild(old.getBuild());
 					r.setQueued(r.getQueueItemId(), r.getQueueItemProject());
+				}
+				else {
+					System.out.println("OLD WAS NULL");
 				}
 			}
 			resources = newResouces;
@@ -646,7 +656,8 @@ public class LockableResourcesManager extends GlobalConfiguration {
                 try {
                     getConfigFile().write(this);
                     for (LockableResource resource : resources) {
-                        LOGGER.log(Level.WARNING, "***" + resource.getName() + "***");
+						System.out.println("*** conffifaili: " + getConfigFile() + "***");
+                        System.out.println("*** Resurssi: " + resource.getName() + "***");
                     }
                 } catch (IOException e) {
                     LOGGER.log(Level.WARNING, "Failed to save " + getConfigFile(),e);

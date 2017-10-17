@@ -285,6 +285,7 @@ public class LockableResource extends AbstractDescribableImpl<LockableResource> 
 	}
 
 	public String getQueueItemProject() {
+		System.out.println("*** getting queue item project ***");
 		this.validateQueuingTimeout();
 		return this.queueItemProject;
 	}
@@ -292,19 +293,26 @@ public class LockableResource extends AbstractDescribableImpl<LockableResource> 
 	public void setQueued(long queueItemId) {
 		this.queueItemId = queueItemId;
 		this.queuingStarted = System.currentTimeMillis() / 1000;
+		System.out.println("*** the queueItemId is now " + this.queueItemId);
+		System.out.println("*** the queuingStarted is now " + this.queuingStarted);
 	}
 
 	public void setQueued(long queueItemId, String queueProjectName) {
 		this.setQueued(queueItemId);
 		this.queueItemProject = queueProjectName;
+		System.out.println("*** the queueProjectName is now " + this.queueItemProject);
 	}
 
 	private void validateQueuingTimeout() {
 		if (queuingStarted > 0) {
+			System.out.println("*** We's queuing ***");
 			long now = System.currentTimeMillis() / 1000;
 			if (now - queuingStarted > QUEUE_TIMEOUT)
 			    System.out.println("ITS A TIMEOUT");
 				unqueue();
+		}
+		else {
+			System.out.println("*** No queuing nigga ***");
 		}
 	}
 
