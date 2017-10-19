@@ -160,13 +160,13 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	}
 
 	public synchronized boolean queue(List<LockableResource> resources,
-			long queueItemId) {
+			long queueItemId, String queueProjectName) {
 		for (LockableResource r : resources)
 			if (r.isReserved() || r.isQueued(queueItemId) || r.isLocked())
 				return false;
 		for (LockableResource r : resources) {
 			System.out.println("----setQueued gonna happen!----");
-			r.setQueued(queueItemId);
+			r.setQueued(queueItemId, queueProjectName);
 		}
 		return true;
 	}
@@ -193,7 +193,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Try to acquire the resources required by the task.
 	 * @param number Number of resources to acquire. {@code 0} means all
@@ -249,7 +249,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			}
 			return null;
 		}
-
+		System.out.println("/// Here we set, selected is: " + selected + "///");
 		for (LockableResource rsc : selected) {
 			rsc.setQueued(queueItemId, queueItemProject);
 		}

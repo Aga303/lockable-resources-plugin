@@ -209,11 +209,12 @@ public class LockableResource extends AbstractDescribableImpl<LockableResource> 
 	}
 
 	public void unqueue() {
-		System.out.println("***** UNQUEUED *****");
-		new Exception().printStackTrace(System.out);
+		System.out.println("***** Before UNQUEUE, Id: " + queueItemId + " queueItemProject: " + " *****");
+		//new Exception().printStackTrace(System.out);
 		queueItemId = NOT_QUEUED;
 		queueItemProject = null;
 		queuingStarted = 0;
+		System.out.println("***** UNQUEUED *****");
 	}
 
 	@Exported

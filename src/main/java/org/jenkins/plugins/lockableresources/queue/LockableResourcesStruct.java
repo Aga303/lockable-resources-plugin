@@ -32,8 +32,8 @@ public class LockableResourcesStruct implements Serializable {
 	public String requiredVar;
 	public String requiredNumber;
         
-        @CheckForNull
-        private final SerializableSecureGroovyScript serializableResourceMatchScript;
+    @CheckForNull
+    private final SerializableSecureGroovyScript serializableResourceMatchScript;
         
 	@CheckForNull
 	private transient SecureGroovyScript resourceMatchScript;
@@ -57,10 +57,14 @@ public class LockableResourcesStruct implements Serializable {
                 serializableResourceMatchScript = new SerializableSecureGroovyScript(resourceMatchScript);
                 
 		requiredVar = property.getResourceNamesVar();
+		//requiredVar = null;
 
 		requiredNumber = property.getResourceNumber();
 		if (requiredNumber != null && requiredNumber.equals("0"))
 			requiredNumber = null;
+		requiredNumber = null;
+
+		System.out.println("TUOMAKSELTA PAEVAA: " + this.toString());
 	}
 
         /**
