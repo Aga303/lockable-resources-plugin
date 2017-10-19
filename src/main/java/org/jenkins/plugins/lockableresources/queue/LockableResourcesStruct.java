@@ -62,7 +62,7 @@ public class LockableResourcesStruct implements Serializable {
 		requiredNumber = property.getResourceNumber();
 		if (requiredNumber != null && requiredNumber.equals("0"))
 			requiredNumber = null;
-		requiredNumber = null;
+		//requiredNumber = null;
 
 		System.out.println("TUOMAKSELTA PAEVAA: " + this.toString());
 	}
