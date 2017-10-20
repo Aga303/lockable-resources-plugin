@@ -47,14 +47,18 @@ public class LockRunListener extends RunListener<Run<?, ?>> {
 				LockableResourcesStruct resources = Utils.requiredResources(proj);
 
 				if (resources != null) {
+					System.out.println("***** RESURSSIT TAKE ONE: " + resources);
 					if (resources.requiredNumber != null || !resources.label.isEmpty() || resources.getResourceMatchScript() != null) {
 						System.out.println("**** RESURSSIT: " + resources + "*****");
 						required.addAll(LockableResourcesManager.get().
 								getResourcesFromProject(proj.getFullName()));
-						System.out.println("**** requiredit: " + required + "*****");
+						System.out.println("**** IF requiredit: " + required + "*****");
 					} else {
+						System.out.println("**** ENNEN ELSEE requiredit: " + required + "*****");
 						required.addAll(resources.required);
+						System.out.println("**** ELSE requiredit: " + required + "*****");
 					}
+					System.out.println("**** AFTER requiredit: " + required + "*****");
 
 					if (LockableResourcesManager.get().lock(required, build, null)) {
 						build.addAction(LockedResourcesBuildAction
@@ -77,6 +81,7 @@ public class LockRunListener extends RunListener<Run<?, ?>> {
 				}
 			}
 		}
+		System.out.println("NO KYÄ ME LOPPUUN MENTIIN");
 
 		return;
 	}
